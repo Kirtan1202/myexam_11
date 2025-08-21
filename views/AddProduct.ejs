@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Add Product</title>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #e0f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 420px;
+      position: relative;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 22px;
+      color: #00796b;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #00acc1;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+    }
+
+    .form-group label {
+      margin-bottom: 6px;
+      display: block;
+      color: #444;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #00acc1;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #007c91;
+    }
+
+    .form-container a {
+      display: block;
+      text-align: center;
+      margin-top: 12px;
+      color: #00acc1;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .form-container a:hover {
+      text-decoration: underline;
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      margin-top: 15px;
+      color: #2e7d32;
+      background: #d0f0dc;
+      padding: 10px;
+      border-radius: 8px;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <form class="form-container" id="productForm" action="/AddProduct" method="POST" enctype="multipart/form-data">
+    <h2><i class="fa-solid fa-box"></i> Add New Product</h2>
+
+    <div class="form-group">
+      <label for="txt1"><i class="fa-solid fa-tag"></i> Product Name</label>
+      <input type="text" name="txt1" id="txt1" placeholder="Enter product name" required />
+    </div>
+
+    <div class="form-group">
+      <label for="txt2"><i class="fa-solid fa-indian-rupee-sign"></i> Product Price</label>
+      <input type="number" name="txt2" id="txt2" placeholder="Enter price (₹)" required min="1" />
+    </div>
+
+    <div class="form-group">
+      <label for="txt3"><i class="fa-solid fa-align-left"></i> Product Description</label>
+      <textarea name="txt3" id="txt3" placeholder="Write product description" required rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="Upload"><i class="fa-solid fa-image"></i> Product Image</label>
+      <input type="file" name="Upload" id="Upload" required />
+    </div>
+
+    <button type="submit"><i class="fa-solid fa-plus-circle"></i> Submit</button>
+
+    <a href="/DisplayProduct"><i class="fa-solid fa-eye"></i> View Products</a>
+
+    <div id="successMessage" class="success-message">
+      <i class="fa-solid fa-circle-check"></i> Product submitted successfully!
+    </div>
+  </form>
+
+  <script>
+    document.getElementById("productForm").addEventListener("submit", function (e) {
+      const name = document.getElementById("txt1").value.trim();
+      const price = document.getElementById("txt2").value.trim();
+      const desc = document.getElementById("txt3").value.trim();
+      const file = document.getElementById("Upload").files[0];
+
+      if (!name || !price || !desc || !file) {
+        e.preventDefault();
+        alert("Please fill in all fields.");
+        return false;
+      }
+
+      // Optional: show animation message immediately (for demo purpose)
+      document.getElementById("successMessage").style.display = "block";
+    });
+  </script>
+
+</body>
+</html>
